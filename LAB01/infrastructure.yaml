@@ -1,0 +1,227 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Triển khai hạ tầng AWS bao gồm VPC, Subnets, Internet Gateway, NAT Gateway, Route Tables, EC2 Instances và Security Groups.
+
+Parameters:
+  VpcCIDR:
+    Description: CIDR block cho VPC
+    Type: String
+    Default: "10.0.0.0/16"
+
+  PublicSubnetCIDR:
+    Description: CIDR block cho Public Subnet
+    Type: String
+    Default: "10.0.1.0/24"
+
+  PrivateSubnetCIDR:
+    Description: CIDR block cho Private Subnet
+    Type: String
+    Default: "10.0.2.0/24"
+
+  KeyName:
+    Description: Tên của SSH key pair để truy cập EC2
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Phải là tên key pair tồn tại trong tài khoản AWS của bạn.
+
+  AllowedSSHIP:
+    Description: 0.0.0.0/0
+    Type: String
+    Default: "0.0.0.0/0"
+
+Resources:
+  # VPC
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: MyVPC
+
+  # Internet Gateway
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: MyInternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref MyVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  # Public Subnet
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Ref PublicSubnetCIDR
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: PublicSubnet
+
+  # Private Subnet
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: !Ref PrivateSubnetCIDR
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet
+
+  # Route Tables
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+      Tags:
+        - Key: Name
+          Value: PublicRouteTable
+
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MyVPC
+      Tags:
+        - Key: Name
+          Value: PrivateRouteTable
+
+  # Routes
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId: !Ref InternetGateway
+
+  # NAT Gateway
+  NatEIP:
+    Type: AWS::EC2::EIP
+    DependsOn: AttachGateway
+    Properties:
+      Domain: vpc
+
+  NatGateway:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt NatEIP.AllocationId
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: MyNatGateway
+
+  PrivateRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      NatGatewayId: !Ref NatGateway
+
+  # Associate Subnets with Route Tables
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  PrivateSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet
+      RouteTableId: !Ref PrivateRouteTable
+
+  # Security Groups
+  PublicSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group cho Public EC2 Instance
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref AllowedSSHIP
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: "0.0.0.0/0"
+      Tags:
+        - Key: Name
+          Value: PublicSecurityGroup
+
+  PrivateSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group cho Private EC2 Instance
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          SourceSecurityGroupId: !Ref PublicSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          CidrIp: "0.0.0.0/0"
+      Tags:
+        - Key: Name
+          Value: PrivateSecurityGroup
+
+  # EC2 Instances
+  PublicEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-06b21ccaeff8cd686
+      SubnetId: !Ref PublicSubnet
+      SecurityGroupIds:
+        - !Ref PublicSecurityGroup
+      Tags:
+        - Key: Name
+          Value: PublicEC2Instance
+
+  PrivateEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyName
+      ImageId: ami-06b21ccaeff8cd686
+      SubnetId: !Ref PrivateSubnet
+      SecurityGroupIds:
+        - !Ref PrivateSecurityGroup
+      Tags:
+        - Key: Name
+          Value: PrivateEC2Instance
+
+Outputs:
+  VPCID:
+    Description: ID của VPC
+    Value: !Ref MyVPC
+
+  PublicSubnetID:
+    Description: ID của Public Subnet
+    Value: !Ref PublicSubnet
+
+  PrivateSubnetID:
+    Description: ID của Private Subnet
+    Value: !Ref PrivateSubnet
+
+  PublicEC2InstanceID:
+    Description: ID của Public EC2 Instance
+    Value: !Ref PublicEC2Instance
+
+  PrivateEC2InstanceID:
+    Description: ID của Private EC2 Instance
+    Value: !Ref PrivateEC2Instance
+
+  PublicEC2InstancePublicIP:
+    Description: Public IP của Public EC2 Instance
+    Value: !GetAtt PublicEC2Instance.PublicIp
