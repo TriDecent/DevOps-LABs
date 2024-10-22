@@ -33,7 +33,7 @@ icacls "Cloud-Formation.pem" /grant:r "$($env:UserName):(R)"
 icacls "Cloud-Formation.pem" /inheritance:r
 icacls "Cloud-Formation.pem" /remove "BUILTIN\Users" (Windows)
 
-7. Kiểm tra kết nối internet của Public ec2
+7. Kiểm tra kết nối internet của Public EC2
 
 ping google.com
 
