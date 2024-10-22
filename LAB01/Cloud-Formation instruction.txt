@@ -1,0 +1,50 @@
+Devops.NT548.P11
+Họ và tên: Trần Vũ Anh Trí  
+MSSV: 22521528
+
+Hướng dẫn sử dụng VPC và kết nối EC2
+
+1. Kết nối SSH vào Public EC2 Instance
+
+Yêu cầu:
+- File .pem: File này dùng để kết nối SSH vào EC2 từ terminal hoặc các ứng dụng tương thích với SSH.
+
+2. Kết nối thông qua SSH
+Để kết nối vào EC2 instance thông qua SSH (terminal), cần sử dụng khóa file .pem và thực hiện lệnh sau:
+
+ssh -i "Cloud-Formation.pem" ec2-user@ec2-54-164-152-137.compute-1.amazonaws.com
+
+- Public DNS: ec2-54-164-152-137.compute-1.amazonaws.com
+- Thay thế "Cloud-Formation.pem" bằng đường dẫn tới file .pem thực tế.
+
+4. Thông tin về VPC và Instance
+- Public DNS: ec2-54-164-152-137.compute-1.amazonaws.com
+- Public IP: 54.164.152.137
+- Private IP: 10.0.1.181
+  
+5. Note
+- File .pem dùng cho kết nối SSH, đảm bảo quyền của file phù hợp:
+  
+chmod 400 Cloud-Formation.pem (UNIX) 
+
+hoặc là
+
+icacls "Cloud-Formation.pem" /grant:r "$($env:UserName):(R)"
+icacls "Cloud-Formation.pem" /inheritance:r
+icacls "Cloud-Formation.pem" /remove "BUILTIN\Users" (Windows)
+
+7. Kiểm tra kết nối internet của Public ec2
+
+ping google.com
+
+6. Kết nối tới Private EC2 từ Public EC2
+Sau khi kết nối thành công vào Public EC2, thực hiện lệnh SSH để kết nối đến Private EC2 (dùng IP private của EC2):
+
+cd DevOps-LABs/LAB01
+chmod 400 Cloud-Formation.pem
+ssh -i "Cloud-Formation.pem" ec2-user@10.0.2.116
+
+7. Kiểm tra kết nối Internet từ Private Instance qua NAT Gateway
+Từ Private EC2, kiểm tra kết nối Internet bằng cách:
+
+ping youtube.com
