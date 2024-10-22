@@ -1,8 +1,4 @@
-Devops.NT548.P11
-Họ và tên: Trần Vũ Anh Trí  
-MSSV: 22521528
-
-Hướng dẫn sử dụng VPC và kết nối EC2
+#CLOUD FORMATION
 
 1. Kết nối SSH vào Public EC2 Instance
 
