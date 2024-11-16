@@ -4,19 +4,19 @@ project:
     - us-east-1
 
 tests:
-  vpc_test:
+  vpc:
     template: infrastructure.yml
     parameters:
       VpcCIDR: 10.0.0.0/16
 
-  subnet_test:
+  subnet:
     template: infrastructure.yml
     parameters:
       VpcCIDR: 10.0.0.0/16
       PublicSubnetCIDR: 10.0.1.0/24
       PrivateSubnetCIDR: 10.0.2.0/24
 
-  instance_test:
+  instance:
     template: infrastructure.yml
     parameters:
       VpcCIDR: 10.0.0.0/16
