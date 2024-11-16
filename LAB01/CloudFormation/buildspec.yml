@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install cfn-lint
+      - pip install taskcat
+  build:
+    commands:
+      - cfn-lint LAB01/CloudFormation/template.yml
+      - taskcat test run -c LAB01/CloudFormation/taskcat.yml
+artifacts:
+  files:
+    - "**/*"
