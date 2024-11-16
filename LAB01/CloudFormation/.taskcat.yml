@@ -1,5 +1,5 @@
 project:
-  name: MyInfrastructureTest
+  name: infrastructure-test
   regions:
     - us-east-1
 
