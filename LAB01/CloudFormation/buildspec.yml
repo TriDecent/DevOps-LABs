@@ -5,13 +5,12 @@ phases:
     runtime-versions:
       python: 3.8
     commands:
-      - pip install cfn-lint
-      - pip install taskcat
+      - pip install cfn-lint taskcat
   build:
     commands:
       - cd LAB01/CloudFormation
       - cfn-lint infrastructure.yml
-      - taskcat test run
+      - taskcat test run --stack-prefix infratest
 artifacts:
   files:
-    - "**/*"
+    - '**/*'
