@@ -10,7 +10,8 @@ phases:
   build:
     commands:
       - cfn-lint LAB01/CloudFormation/infrastructure.yml
-      - taskcat test run -d LAB01/CloudFormation
+      - cd LAB01/CloudFormation
+      - taskcat run
 artifacts:
   files:
     - "**/*"
