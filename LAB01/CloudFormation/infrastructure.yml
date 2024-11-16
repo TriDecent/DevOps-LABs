@@ -21,6 +21,7 @@ Parameters:
     Description: SSH key pair name for EC2 access
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription: Must be an existing key pair in your AWS account.
+    Default: Cloud-Formation
 
   AllowedSSHIP:
     Description: Allowed SSH IP range
