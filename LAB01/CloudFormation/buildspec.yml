@@ -9,9 +9,9 @@ phases:
       - pip install taskcat
   build:
     commands:
-      - cfn-lint LAB01/CloudFormation/infrastructure.yml
       - cd LAB01/CloudFormation
-      - taskcat run
+      - cfn-lint infrastructure.yml
+      - taskcat test run
 artifacts:
   files:
     - "**/*"
