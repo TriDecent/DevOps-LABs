@@ -1,34 +1,33 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Triển khai hạ tầng AWS bao gồm VPC, Subnets, Internet Gateway, NAT Gateway, Route Tables, EC2 Instances và Security Groups.
+Description: Deploy AWS infrastructure including VPC, Subnets, Internet Gateway, NAT Gateway, Route Tables, EC2 Instances, and Security Groups.
 
 Parameters:
   VpcCIDR:
-    Description: CIDR block cho VPC
+    Description: CIDR block for VPC
     Type: String
     Default: "10.0.0.0/16"
 
   PublicSubnetCIDR:
-    Description: CIDR block cho Public Subnet
+    Description: CIDR block for Public Subnet
     Type: String
     Default: "10.0.1.0/24"
 
   PrivateSubnetCIDR:
-    Description: CIDR block cho Private Subnet
+    Description: CIDR block for Private Subnet
     Type: String
     Default: "10.0.2.0/24"
 
   KeyName:
-    Description: Tên của SSH key pair để truy cập EC2
+    Description: SSH key pair name for EC2 access
     Type: AWS::EC2::KeyPair::KeyName
-    ConstraintDescription: Phải là tên key pair tồn tại trong tài khoản AWS của bạn.
+    ConstraintDescription: Must be an existing key pair in your AWS account.
 
   AllowedSSHIP:
-    Description: 0.0.0.0/0
+    Description: Allowed SSH IP range
     Type: String
     Default: "0.0.0.0/0"
 
 Resources:
-  # VPC
   MyVPC:
     Type: AWS::EC2::VPC
     Properties:
@@ -38,22 +37,23 @@ Resources:
       Tags:
         - Key: Name
           Value: MyVPC
+    DeletionPolicy: Retain
 
-  # Internet Gateway
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
       Tags:
         - Key: Name
           Value: MyInternetGateway
+    DeletionPolicy: Retain
 
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref MyVPC
       InternetGatewayId: !Ref InternetGateway
+    DeletionPolicy: Retain
 
-  # Public Subnet
   PublicSubnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -64,8 +64,8 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicSubnet
+    DeletionPolicy: Retain
 
-  # Private Subnet
   PrivateSubnet:
     Type: AWS::EC2::Subnet
     Properties:
@@ -76,8 +76,8 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateSubnet
+    DeletionPolicy: Retain
 
-  # Route Tables
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -85,6 +85,7 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicRouteTable
+    DeletionPolicy: Retain
 
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
@@ -93,8 +94,8 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateRouteTable
+    DeletionPolicy: Retain
 
-  # Routes
   PublicRoute:
     Type: AWS::EC2::Route
     DependsOn: AttachGateway
@@ -102,13 +103,14 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
       GatewayId: !Ref InternetGateway
+    DeletionPolicy: Retain
 
-  # NAT Gateway
   NatEIP:
     Type: AWS::EC2::EIP
     DependsOn: AttachGateway
     Properties:
       Domain: vpc
+    DeletionPolicy: Retain
 
   NatGateway:
     Type: AWS::EC2::NatGateway
@@ -118,6 +120,7 @@ Resources:
       Tags:
         - Key: Name
           Value: MyNatGateway
+    DeletionPolicy: Retain
 
   PrivateRoute:
     Type: AWS::EC2::Route
@@ -125,25 +128,26 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
       NatGatewayId: !Ref NatGateway
+    DeletionPolicy: Retain
 
-  # Associate Subnets with Route Tables
   PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet
       RouteTableId: !Ref PublicRouteTable
+    DeletionPolicy: Retain
 
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PrivateSubnet
       RouteTableId: !Ref PrivateRouteTable
+    DeletionPolicy: Retain
 
-  # Security Groups
   PublicSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Security Group cho Public EC2 Instance
+      GroupDescription: Security Group for Public EC2 Instance
       VpcId: !Ref MyVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -156,11 +160,12 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicSecurityGroup
+    DeletionPolicy: Retain
 
   PrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Security Group cho Private EC2 Instance
+      GroupDescription: Security Group for Private EC2 Instance
       VpcId: !Ref MyVPC
       SecurityGroupIngress:
         - IpProtocol: tcp
@@ -173,8 +178,8 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateSecurityGroup
+    DeletionPolicy: Retain
 
-  # EC2 Instances
   PublicEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -187,6 +192,7 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicEC2Instance
+    DeletionPolicy: Retain
 
   PrivateEC2Instance:
     Type: AWS::EC2::Instance
@@ -200,28 +206,29 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateEC2Instance
+    DeletionPolicy: Retain
 
 Outputs:
   VPCID:
-    Description: ID của VPC
+    Description: ID of the VPC
     Value: !Ref MyVPC
 
   PublicSubnetID:
-    Description: ID của Public Subnet
+    Description: ID of the Public Subnet
     Value: !Ref PublicSubnet
 
   PrivateSubnetID:
-    Description: ID của Private Subnet
+    Description: ID of the Private Subnet
     Value: !Ref PrivateSubnet
 
   PublicEC2InstanceID:
-    Description: ID của Public EC2 Instance
+    Description: ID of the Public EC2 Instance
     Value: !Ref PublicEC2Instance
 
   PrivateEC2InstanceID:
-    Description: ID của Private EC2 Instance
+    Description: ID of the Private EC2 Instance
     Value: !Ref PrivateEC2Instance
 
   PublicEC2InstancePublicIP:
-    Description: Public IP của Public EC2 Instance
+    Description: Public IP of the Public EC2 Instance
     Value: !GetAtt PublicEC2Instance.PublicIp
