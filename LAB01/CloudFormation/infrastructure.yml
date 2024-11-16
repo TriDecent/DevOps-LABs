@@ -2,11 +2,6 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Deploy AWS infrastructure including VPC, Subnets, Internet Gateway, NAT Gateway, Route Tables, EC2 Instances, and Security Groups.
 
 Parameters:
-  EnvironmentName:
-    Type: String
-    Default: Test
-    Description: The name of the environment (e.g., Test, Prod)
-
   VpcCIDR:
     Description: CIDR block for VPC
     Type: String
@@ -42,7 +37,7 @@ Resources:
       EnableDnsHostnames: true
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-VPC"
+          Value: MyVPC
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -51,7 +46,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-InternetGateway"
+          Value: MyInternetGateway
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -72,7 +67,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PublicSubnet"
+          Value: PublicSubnet
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -85,7 +80,7 @@ Resources:
       MapPublicIpOnLaunch: false
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PrivateSubnet"
+          Value: PrivateSubnet
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -95,7 +90,7 @@ Resources:
       VpcId: !Ref MyVPC
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PublicRouteTable"
+          Value: PublicRouteTable
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -105,7 +100,7 @@ Resources:
       VpcId: !Ref MyVPC
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PrivateRouteTable"
+          Value: PrivateRouteTable
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -134,7 +129,7 @@ Resources:
       SubnetId: !Ref PublicSubnet
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-NatGateway"
+          Value: MyNatGateway
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -178,7 +173,7 @@ Resources:
           CidrIp: "0.0.0.0/0"
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PublicSecurityGroup"
+          Value: PublicSecurityGroup
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -197,7 +192,7 @@ Resources:
           CidrIp: "0.0.0.0/0"
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PrivateSecurityGroup"
+          Value: PrivateSecurityGroup
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -212,7 +207,7 @@ Resources:
         - !Ref PublicSecurityGroup
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PublicEC2Instance"
+          Value: PublicEC2Instance
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
@@ -227,7 +222,7 @@ Resources:
         - !Ref PrivateSecurityGroup
       Tags:
         - Key: Name
-          Value: !Sub "${EnvironmentName}-PrivateEC2Instance"
+          Value: PrivateEC2Instance
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
 
