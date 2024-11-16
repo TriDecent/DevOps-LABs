@@ -225,28 +225,3 @@ Resources:
           Value: PrivateEC2Instance
     DeletionPolicy: Retain
     UpdateReplacePolicy: Retain
-
-Outputs:
-  VPCID:
-    Description: ID of the VPC
-    Value: !Ref MyVPC
-
-  PublicSubnetID:
-    Description: ID of the Public Subnet
-    Value: !Ref PublicSubnet
-
-  PrivateSubnetID:
-    Description: ID of the Private Subnet
-    Value: !Ref PrivateSubnet
-
-  PublicEC2InstanceID:
-    Description: ID of the Public EC2 Instance
-    Value: !Ref PublicEC2Instance
-
-  PrivateEC2InstanceID:
-    Description: ID of the Private EC2 Instance
-    Value: !Ref PrivateEC2Instance
-
-  PublicEC2InstancePublicIP:
-    Description: Public IP of the Public EC2 Instance
-    Value: !GetAtt PublicEC2Instance.PublicIp
