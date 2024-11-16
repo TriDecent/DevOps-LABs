@@ -1,0 +1,26 @@
+project:
+  name: MyInfrastructureTest
+  regions:
+    - us-east-1
+
+tests:
+  vpc_test:
+    template: infrastructure.yml
+    parameters:
+      VpcCIDR: 10.0.0.0/16
+
+  subnet_test:
+    template: infrastructure.yml
+    parameters:
+      VpcCIDR: 10.0.0.0/16
+      PublicSubnetCIDR: 10.0.1.0/24
+      PrivateSubnetCIDR: 10.0.2.0/24
+
+  instance_test:
+    template: infrastructure.yml
+    parameters:
+      VpcCIDR: 10.0.0.0/16
+      PublicSubnetCIDR: 10.0.1.0/24
+      PrivateSubnetCIDR: 10.0.2.0/24
+      KeyName: Cloud-Formation
+      AllowedSSHIP: 0.0.0.0/0
