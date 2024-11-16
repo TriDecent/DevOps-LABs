@@ -9,7 +9,7 @@ phases:
       - pip install taskcat
   build:
     commands:
-      - cfn-lint LAB01/CloudFormation/template.yml
+      - cfn-lint LAB01/CloudFormation/infrastructure.yml
       - taskcat test run -c LAB01/CloudFormation/taskcat.yml
 artifacts:
   files:
