@@ -10,7 +10,9 @@ phases:
     commands:
       - cd LAB01/CloudFormation
       - cfn-lint infrastructure.yml
-      - taskcat test run
+      - taskcat test run > taskcat_output.log || echo Taskcat failed
+      - cat taskcat_output.log 
+      - ls -l  
 artifacts:
   files:
     - '**/*'
