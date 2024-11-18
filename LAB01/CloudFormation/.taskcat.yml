@@ -6,11 +6,17 @@ project:
 tests:
   vpc:
     template: infrastructure.yml
+    stack_name: infratest-vpc
+    regions:
+      - us-east-1
     parameters:
       VpcCIDR: 10.0.0.0/16
 
   subnet:
     template: infrastructure.yml
+    stack_name: infratest-subnet
+    regions:
+      - us-east-1
     parameters:
       VpcCIDR: 10.0.0.0/16
       PublicSubnetCIDR: 10.0.1.0/24
@@ -18,6 +24,9 @@ tests:
 
   instance:
     template: infrastructure.yml
+    stack_name: infratest-instance
+    regions:
+      - us-east-1
     parameters:
       VpcCIDR: 10.0.0.0/16
       PublicSubnetCIDR: 10.0.1.0/24
