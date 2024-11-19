@@ -38,8 +38,6 @@ Resources:
       Tags:
         - Key: Name
           Value: MyVPC
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   InternetGateway:
     Type: AWS::EC2::InternetGateway
@@ -47,16 +45,12 @@ Resources:
       Tags:
         - Key: Name
           Value: MyInternetGateway
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   AttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       VpcId: !Ref MyVPC
       InternetGatewayId: !Ref InternetGateway
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicSubnet:
     Type: AWS::EC2::Subnet
@@ -68,8 +62,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicSubnet
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateSubnet:
     Type: AWS::EC2::Subnet
@@ -81,8 +73,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateSubnet
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
@@ -91,8 +81,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicRouteTable
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
@@ -101,8 +89,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateRouteTable
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicRoute:
     Type: AWS::EC2::Route
@@ -111,16 +97,12 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
       GatewayId: !Ref InternetGateway
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   NatEIP:
     Type: AWS::EC2::EIP
     DependsOn: AttachGateway
     Properties:
       Domain: vpc
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   NatGateway:
     Type: AWS::EC2::NatGateway
@@ -130,8 +112,6 @@ Resources:
       Tags:
         - Key: Name
           Value: MyNatGateway
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateRoute:
     Type: AWS::EC2::Route
@@ -139,24 +119,18 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable
       DestinationCidrBlock: "0.0.0.0/0"
       NatGatewayId: !Ref NatGateway
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet
       RouteTableId: !Ref PublicRouteTable
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PrivateSubnet
       RouteTableId: !Ref PrivateRouteTable
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -174,8 +148,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicSecurityGroup
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -193,8 +165,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateSecurityGroup
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PublicEC2Instance:
     Type: AWS::EC2::Instance
@@ -208,8 +178,6 @@ Resources:
       Tags:
         - Key: Name
           Value: PublicEC2Instance
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
 
   PrivateEC2Instance:
     Type: AWS::EC2::Instance
@@ -223,5 +191,3 @@ Resources:
       Tags:
         - Key: Name
           Value: PrivateEC2Instance
-    DeletionPolicy: Retain
-    UpdateReplacePolicy: Retain
