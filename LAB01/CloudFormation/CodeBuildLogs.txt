@@ -1,0 +1,343 @@
+[Container] 2024/11/19 01:10:57.644820 Running on CodeBuild On-demand
+[Container] 2024/11/19 01:10:57.644862 Waiting for agent ping
+[Container] 2024/11/19 01:10:58.047245 Waiting for DOWNLOAD_SOURCE
+[Container] 2024/11/19 01:11:00.946457 Phase is DOWNLOAD_SOURCE
+[Container] 2024/11/19 01:11:01.078077 CODEBUILD_SRC_DIR=/codebuild/output/src4226863693/src
+[Container] 2024/11/19 01:11:01.079091 YAML location is /codebuild/output/src4226863693/src/LAB01/CloudFormation/buildspec.yml
+[Container] 2024/11/19 01:11:01.082723 Setting HTTP client timeout to higher timeout for S3 source
+[Container] 2024/11/19 01:11:01.082821 Processing environment variables
+[Container] 2024/11/19 01:11:01.416428 Selecting 'python' runtime version '3.8' based on manual selections...
+[Container] 2024/11/19 01:11:01.416912 Running command echo "Installing custom Python version 3.8 ..."
+Installing custom Python version 3.8 ...
+
+[Container] 2024/11/19 01:11:01.423704 Running command pyenv install 3.8 && rm -rf /tmp/*
+Downloading Python-3.8.20.tar.xz...
+-> https://www.python.org/ftp/python/3.8.20/Python-3.8.20.tar.xz
+Installing Python-3.8.20...
+Installed Python-3.8.20 to /root/.pyenv/versions/3.8.20
+
+[Container] 2024/11/19 01:13:55.805559 Running command pyenv global 3.8
+
+[Container] 2024/11/19 01:13:55.876429 Moving to directory /codebuild/output/src4226863693/src
+[Container] 2024/11/19 01:13:55.879552 Unable to initialize cache download: no paths specified to be cached
+[Container] 2024/11/19 01:13:55.984839 Configuring ssm agent with target id: codebuild:18abcefd-9cd7-4689-aa36-de7aed8401c3
+[Container] 2024/11/19 01:13:56.073759 Successfully updated ssm agent configuration
+[Container] 2024/11/19 01:13:56.074328 Registering with agent
+[Container] 2024/11/19 01:13:56.227734 Phases found in YAML: 2
+[Container] 2024/11/19 01:13:56.227756  BUILD: 5 commands
+[Container] 2024/11/19 01:13:56.227761  INSTALL: 1 commands
+[Container] 2024/11/19 01:13:56.228324 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2024/11/19 01:13:56.228342 Phase context status code:  Message: 
+[Container] 2024/11/19 01:13:56.397340 Entering phase INSTALL
+[Container] 2024/11/19 01:13:56.513442 Running command pip install cfn-lint taskcat
+Collecting cfn-lint
+  Downloading cfn_lint-1.20.0-py3-none-any.whl (5.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 66.3 MB/s eta 0:00:00
+Collecting taskcat
+  Downloading taskcat-0.9.55-py3-none-any.whl (122 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 122.9/122.9 kB 40.8 MB/s eta 0:00:00
+Collecting networkx<4,>=2.4
+  Downloading networkx-3.1-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 108.0 MB/s eta 0:00:00
+Collecting aws-sam-translator>=1.92.0
+  Downloading aws_sam_translator-1.92.0-py3-none-any.whl (383 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 383.7/383.7 kB 71.4 MB/s eta 0:00:00
+Collecting pyyaml>5.4
+  Downloading PyYAML-6.0.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (746 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 746.5/746.5 kB 97.7 MB/s eta 0:00:00
+Collecting jsonpatch
+  Downloading jsonpatch-1.33-py2.py3-none-any.whl (12 kB)
+Collecting sympy>=1.0.0
+  Downloading sympy-1.13.3-py3-none-any.whl (6.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 120.7 MB/s eta 0:00:00
+Collecting regex
+  Downloading regex-2024.11.6-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (785 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 785.1/785.1 kB 23.4 MB/s eta 0:00:00
+Collecting typing-extensions
+  Downloading typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Collecting botocore<2.0,>=1.12.21
+  Downloading botocore-1.35.64-py3-none-any.whl (12.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.9/12.9 MB 92.0 MB/s eta 0:00:00
+Collecting tabulate<1.0,>=0.8.2
+  Downloading tabulate-0.9.0-py3-none-any.whl (35 kB)
+Collecting reprint
+  Downloading reprint-0.6.0-py2.py3-none-any.whl (6.0 kB)
+Collecting urllib3<2
+  Downloading urllib3-1.26.20-py2.py3-none-any.whl (144 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 144.2/144.2 kB 45.4 MB/s eta 0:00:00
+Collecting boto3<2.0,>=1.9.21
+  Downloading boto3-1.35.64-py3-none-any.whl (139 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 139.2/139.2 kB 40.1 MB/s eta 0:00:00
+Collecting jinja2<4.0,>=3.1.1
+  Downloading jinja2-3.1.4-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.3/133.3 kB 46.8 MB/s eta 0:00:00
+Requirement already satisfied: setuptools>=40.4.3 in /root/.pyenv/versions/3.8.20/lib/python3.8/site-packages (from taskcat) (56.0.0)
+Collecting yattag<2.0,>=1.10.0
+  Downloading yattag-1.16.1.tar.gz (29 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting markupsafe==2.0.1
+  Downloading MarkupSafe-2.0.1-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl (30 kB)
+Collecting jsonschema<4.0,>=3.0
+  Downloading jsonschema-3.2.0-py2.py3-none-any.whl (56 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.3/56.3 kB 20.0 MB/s eta 0:00:00
+Collecting GitPython>=3.1.43
+  Downloading GitPython-3.1.43-py3-none-any.whl (207 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 207.3/207.3 kB 54.0 MB/s eta 0:00:00
+Collecting requests>=2.31.0
+  Downloading requests-2.32.3-py3-none-any.whl (64 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.9/64.9 kB 24.0 MB/s eta 0:00:00
+Collecting dataclasses-jsonschema<2.15.2,>=2.9.0
+  Downloading dataclasses_jsonschema-2.15.1-py3-none-any.whl (17 kB)
+Collecting docker<8.0,>=7.0
+  Downloading docker-7.1.0-py3-none-any.whl (147 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 147.8/147.8 kB 40.9 MB/s eta 0:00:00
+Requirement already satisfied: pip in /root/.pyenv/versions/3.8.20/lib/python3.8/site-packages (from taskcat) (23.0.1)
+Collecting dulwich<1.0,>=0.19
+  Downloading dulwich-0.22.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (968 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 968.6/968.6 kB 96.1 MB/s eta 0:00:00
+Collecting pathspec==0.10.3
+  Downloading pathspec-0.10.3-py3-none-any.whl (29 kB)
+Collecting pydantic!=1.10.15,!=1.10.17,<3,>=1.8
+  Downloading pydantic-2.9.2-py3-none-any.whl (434 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 434.9/434.9 kB 77.2 MB/s eta 0:00:00
+Collecting jmespath<2.0.0,>=0.7.1
+  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Collecting s3transfer<0.11.0,>=0.10.0
+  Downloading s3transfer-0.10.3-py3-none-any.whl (82 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 82.6/82.6 kB 32.3 MB/s eta 0:00:00
+Collecting python-dateutil<3.0.0,>=2.1
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 229.9/229.9 kB 55.3 MB/s eta 0:00:00
+Collecting gitdb<5,>=4.0.1
+  Downloading gitdb-4.0.11-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.7/62.7 kB 21.3 MB/s eta 0:00:00
+Collecting pyrsistent>=0.14.0
+  Downloading pyrsistent-0.20.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (121 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.8/121.8 kB 39.5 MB/s eta 0:00:00
+Collecting attrs>=17.4.0
+  Downloading attrs-24.2.0-py3-none-any.whl (63 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 63.0/63.0 kB 18.9 MB/s eta 0:00:00
+Collecting six>=1.11.0
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting charset-normalizer<4,>=2
+  Downloading charset_normalizer-3.4.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (143 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 143.3/143.3 kB 40.0 MB/s eta 0:00:00
+Collecting idna<4,>=2.5
+  Downloading idna-3.10-py3-none-any.whl (70 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.4/70.4 kB 23.0 MB/s eta 0:00:00
+Collecting certifi>=2017.4.17
+  Downloading certifi-2024.8.30-py3-none-any.whl (167 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.3/167.3 kB 45.8 MB/s eta 0:00:00
+Collecting mpmath<1.4,>=1.1.0
+  Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 87.1 MB/s eta 0:00:00
+Collecting jsonpointer>=1.9
+  Downloading jsonpointer-3.0.0-py2.py3-none-any.whl (7.6 kB)
+Collecting backports.shutil-get-terminal-size
+  Downloading backports.shutil_get_terminal_size-1.0.0-py2.py3-none-any.whl (6.5 kB)
+Collecting colorama
+  Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Collecting smmap<6,>=3.0.1
+  Downloading smmap-5.0.1-py3-none-any.whl (24 kB)
+Collecting annotated-types>=0.6.0
+  Downloading annotated_types-0.7.0-py3-none-any.whl (13 kB)
+Collecting pydantic-core==2.23.4
+  Downloading pydantic_core-2.23.4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 88.5 MB/s eta 0:00:00
+Installing collected packages: yattag, mpmath, backports.shutil-get-terminal-size, urllib3, typing-extensions, tabulate, sympy, smmap, six, regex, pyyaml, pyrsistent, pathspec, networkx, markupsafe, jsonpointer, jmespath, idna, colorama, charset-normalizer, certifi, attrs, requests, reprint, python-dateutil, pydantic-core, jsonschema, jsonpatch, jinja2, gitdb, dulwich, annotated-types, pydantic, GitPython, docker, dataclasses-jsonschema, botocore, s3transfer, boto3, aws-sam-translator, cfn-lint, taskcat
+  DEPRECATION: yattag is being installed using the legacy 'setup.py install' method, because it does not have a 'pyproject.toml' and the 'wheel' package is not installed. pip 23.1 will enforce this behaviour change. A possible replacement is to enable the '--use-pep517' option. Discussion can be found at https://github.com/pypa/pip/issues/8559
+  Running setup.py install for yattag: started
+  Running setup.py install for yattag: finished with status 'done'
+Successfully installed GitPython-3.1.43 annotated-types-0.7.0 attrs-24.2.0 aws-sam-translator-1.92.0 backports.shutil-get-terminal-size-1.0.0 boto3-1.35.64 botocore-1.35.64 certifi-2024.8.30 cfn-lint-1.20.0 charset-normalizer-3.4.0 colorama-0.4.6 dataclasses-jsonschema-2.15.1 docker-7.1.0 dulwich-0.22.4 gitdb-4.0.11 idna-3.10 jinja2-3.1.4 jmespath-1.0.1 jsonpatch-1.33 jsonpointer-3.0.0 jsonschema-3.2.0 markupsafe-2.0.1 mpmath-1.3.0 networkx-3.1 pathspec-0.10.3 pydantic-2.9.2 pydantic-core-2.23.4 pyrsistent-0.20.0 python-dateutil-2.9.0.post0 pyyaml-6.0.2 regex-2024.11.6 reprint-0.6.0 requests-2.32.3 s3transfer-0.10.3 six-1.16.0 smmap-5.0.1 sympy-1.13.3 tabulate-0.9.0 taskcat-0.9.55 typing-extensions-4.12.2 urllib3-1.26.20 yattag-1.16.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.3.1
+[notice] To update, run: pip install --upgrade pip
+
+[Container] 2024/11/19 01:14:18.282389 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2024/11/19 01:14:18.282403 Phase context status code:  Message: 
+[Container] 2024/11/19 01:14:18.320215 Entering phase PRE_BUILD
+[Container] 2024/11/19 01:14:18.321347 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2024/11/19 01:14:18.321359 Phase context status code:  Message: 
+[Container] 2024/11/19 01:14:18.357022 Entering phase BUILD
+[Container] 2024/11/19 01:14:18.358225 Running command cd LAB01/CloudFormation
+
+[Container] 2024/11/19 01:14:18.363700 Running command cfn-lint infrastructure.yml
+
+[Container] 2024/11/19 01:14:19.537439 Running command taskcat test run -d > taskcat_output.log || echo Taskcat failed
+ _            _             _   
+| |_ __ _ ___| | _____ __ _| |_ 
+| __/ _` / __| |/ / __/ _` | __|
+| || (_| \__ \   < (_| (_| | |_ 
+ \__\__,_|___/_|\_\___\__,_|\__|
+                                
+
+
+version 0.9.55
+[INFO   ] : Linting passed for file: /codebuild/output/src4226863693/src/LAB01/CloudFormation/infrastructure.yml
+[S3: -> ] s3://tcat-infratest-jhaiqobh/infratest/Cloud-Formation Instructions.txt
+[S3: -> ] s3://tcat-infratest-jhaiqobh/infratest/Cloud-Formation.pem
+[S3: -> ] s3://tcat-infratest-jhaiqobh/infratest/buildspec.yml
+[S3: -> ] s3://tcat-infratest-jhaiqobh/infratest/infrastructure.yml
+[S3: -> ] s3://tcat-infratest-jhaiqobh/infratest/taskcat_output.log
+[INFO   ] : ┏ stack Ⓜ infratest-vpc
+[INFO   ] : ┣ region: us-east-1
+[INFO   ] : ┗ status: CREATE_COMPLETE 
+[INFO   ] : ┏ stack Ⓜ infratest-public-subnet
+[INFO   ] : ┣ region: us-east-1
+[INFO   ] : ┗ status: CREATE_COMPLETE 
+[INFO   ] : ┏ stack Ⓜ infratest-private-subnet
+[INFO   ] : ┣ region: us-east-1
+[INFO   ] : ┗ status: CREATE_COMPLETE 
+[INFO   ] : Reporting on arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-vpc/9ce41f00-a613-11ef-8e12-126115a66043
+[INFO   ] : Reporting on arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-public-subnet/9cd8ad50-a613-11ef-bf00-0eb941e743af
+[INFO   ] : Reporting on arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-private-subnet/9cde0480-a613-11ef-878e-0afffc72fe3f
+[INFO   ] : Deleting stack: arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-vpc/9ce41f00-a613-11ef-8e12-126115a66043
+[INFO   ] : Deleting stack: arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-private-subnet/9cde0480-a613-11ef-878e-0afffc72fe3f
+[INFO   ] : Deleting stack: arn:aws:cloudformation:us-east-1:381492080570:stack/infratest-public-subnet/9cd8ad50-a613-11ef-bf00-0eb941e743af
+
+[Container] 2024/11/19 01:16:29.150868 Running command cat taskcat_output.log
+Not in terminal, reprint now using normal build-in print function.
+
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-vpc
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-public-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+         ┏ stack Ⓜ infratest-private-subnet
+         ┣ region: us-east-1
+         ┗ status: CREATE_IN_PROGRESS
+
+[Container] 2024/11/19 01:16:29.157654 Running command ls -l
+total 28
+-rw-rw-r-- 1 root root 1566 Nov 19 00:58 Cloud-Formation Instructions.txt
+-rw-rw-r-- 1 root root 1674 Nov 19 00:58 Cloud-Formation.pem
+-rw-rw-r-- 1 root root  367 Nov 19 00:58 buildspec.yml
+-rw-rw-r-- 1 root root 4766 Nov 19 00:58 infrastructure.yml
+-rw-r--r-- 1 root root 4208 Nov 19 01:16 taskcat_output.log
+drwxr-xr-x 2 root root  174 Nov 19 01:16 taskcat_outputs
+
+[Container] 2024/11/19 01:16:29.163872 Phase complete: BUILD State: SUCCEEDED
+[Container] 2024/11/19 01:16:29.163955 Phase context status code:  Message: 
+[Container] 2024/11/19 01:16:29.200938 Entering phase POST_BUILD
+[Container] 2024/11/19 01:16:29.202003 Phase complete: POST_BUILD State: SUCCEEDED
+[Container] 2024/11/19 01:16:29.202020 Phase context status code:  Message: 
+[Container] 2024/11/19 01:16:29.419809 Expanding base directory path: .
+[Container] 2024/11/19 01:16:29.423239 Assembling file list
+[Container] 2024/11/19 01:16:29.423251 Expanding .
+[Container] 2024/11/19 01:16:29.426555 Expanding file paths for base directory .
+[Container] 2024/11/19 01:16:29.426568 Assembling file list
+[Container] 2024/11/19 01:16:29.426572 Expanding **/*
+[Container] 2024/11/19 01:16:29.430068 Found 41 file(s)
+[Container] 2024/11/19 01:16:29.438478 Set report auto-discover timeout to 5 seconds
+[Container] 2024/11/19 01:16:29.438538 Expanding base directory path:  .
+[Container] 2024/11/19 01:16:29.441614 Assembling file list
+[Container] 2024/11/19 01:16:29.441629 Expanding .
+[Container] 2024/11/19 01:16:29.444749 Expanding file paths for base directory .
+[Container] 2024/11/19 01:16:29.444762 Assembling file list
+[Container] 2024/11/19 01:16:29.444766 Expanding **/*
+[Container] 2024/11/19 01:16:29.448151 No matching auto-discover report paths found
+[Container] 2024/11/19 01:16:29.448253 Report auto-discover file discovery took 0.009775 seconds
+[Container] 2024/11/19 01:16:29.448293 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2024/11/19 01:16:29.448302 Phase context status code:  Message: 
