@@ -6,38 +6,29 @@ project:
 tests:
   vpc:
     template: infrastructure.yml
-    stack_name: infratest-vpc
-    regions:
-      - us-east-1
     parameters:
       VpcCIDR: "10.0.0.0/16"
+      KeyName: "Cloud-Formation"
+    regions:
+      - us-east-1
+    stack_name: "infratest-vpc"
 
   public_subnet:
     template: infrastructure.yml
-    stack_name: infratest-public-subnet
-    regions:
-      - us-east-1
     parameters:
       VpcCIDR: "10.0.0.0/16"
       PublicSubnetCIDR: "10.0.1.0/24"
+      KeyName: "Cloud-Formation"
+    regions:
+      - us-east-1
+    stack_name: "infratest-public-subnet"
 
   private_subnet:
     template: infrastructure.yml
-    stack_name: infratest-private-subnet
-    regions:
-      - us-east-1
     parameters:
       VpcCIDR: "10.0.0.0/16"
-      PrivateSubnetCIDR: "10.0.2.0/24"
-
-  instance:
-    template: infrastructure.yml
-    stack_name: infratest-instance
-    regions:
-      - us-east-1
-    parameters:
-      VpcCIDR: "10.0.0.0/16"
-      PublicSubnetCIDR: "10.0.1.0/24"
       PrivateSubnetCIDR: "10.0.2.0/24"
       KeyName: "Cloud-Formation"
-      AllowedSSHIP: "0.0.0.0/0"
+    regions:
+      - us-east-1
+    stack_name: "infratest-private-subnet"
