@@ -15,4 +15,7 @@ phases:
       - ls -l  
 artifacts:
   files:
-    - '**/*'
+    - infrastructure.yml
+    - taskcat_output.log
+  discard-paths: yes
+  base-directory: LAB01/CloudFormation
