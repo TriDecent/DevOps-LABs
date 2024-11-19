@@ -19,3 +19,4 @@ artifacts:
     - taskcat_output.log
   discard-paths: yes
   base-directory: LAB01/CloudFormation
+  
